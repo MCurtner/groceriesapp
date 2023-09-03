@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Grocery } from '../interface/grocery.interface';
+import { GroceryInterface } from '../interface/grocery.interface';
 import { Response } from '../interface/response.interface';
 
 @Injectable({providedIn: 'root'})
@@ -12,16 +12,16 @@ export class GroceriesService {
   constructor(private http: HttpClient) { }
 
   // Fetch groceries
-  getGroceries(page: number = 1, size: number = 10): Observable<any> {
+  getGroceries(page: number = 0, filter: string = ""): Observable<any> {
     
-    return this.http.get<any>(`${this.apiUrl}/groceries?page=${page}&size=${size}`).pipe(
+    return this.http.get<any>(`${this.apiUrl}/groceries?page=${page}&name=${filter}`).pipe(
       map(response => this.processResponse(response))
     ); 
   }
 
   private processResponse(response: Response): Response {
     return {
-      content: response.content.map((grocery: any) => (<Grocery>{
+      content: response.content.map((grocery: any) => (<GroceryInterface>{
         id: grocery.id,
         name: grocery.name,
         imageUrl: grocery.imageUrl,

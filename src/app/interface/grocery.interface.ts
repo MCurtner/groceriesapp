@@ -1,4 +1,4 @@
-export interface Grocery {
+export interface GroceryInterface {
     id: number
     name: string;
     imageUrl: string;

@@ -1,13 +1,17 @@
 <div *ngIf="response" class="card">
     <div class="card-body">
         <h5>Groceries API</h5>
+
+        <form [formGroup]="searchForm" class="searchBar" (ngSubmit)="onSearchSubmit()">
+            <input type="text" placeholder="Search..." formControlName="searchValue" class="searchBarInput" />
+        </form>
+
     </div>
 </div>
 <br>
 <table *ngIf="response" class="table table-striped">
     <thead class="table-light">
         <tr>
-            <th scope="col">ID</th>
             <th scope="col">Image</th>
             <th scope="col">Name</th>
             <th scope="col">Price</th>
@@ -17,8 +21,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let grocery of response.content; let i = index">
-            <td>{{ grocery.id }}</td>
-            <td><img [src]="grocery.imageUrl" alt="grocery.name" width="50" height="50" style="border-radius: 50%;"></td>
+            <td><img [src]="grocery.imageUrl" alt="" onerror="this.onerror=null; this.src='assets/Default.jpg'" width="50" height="50" style="border-radius: 50%;"></td>
             <td>{{ grocery.name }}</td>
             <td>{{ grocery.price }} {{grocery.currency}}</td>
             <td>{{ grocery.volumePrice }} {{grocery.volumeCurrency}}</td>
